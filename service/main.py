@@ -1,13 +1,11 @@
+import asyncio
+import time
 import uuid
-from fastapi import FastAPI
 from concurrent.futures import ThreadPoolExecutor
-
+from contextlib import asynccontextmanager
 from datetime import datetime
 
 from fastapi import FastAPI
-from concurrent.futures import ThreadPoolExecutor
-from contextlib import asynccontextmanager
-import time
 
 threadPool = ThreadPoolExecutor(max_workers=4)
 
@@ -28,6 +26,18 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan,
 )
+
+
+async def none_blocking_io_work():
+    # This is asyncs version of sleep
+    await asyncio.sleep(2)
+    print(f"Current date: {datetime.now()}")
+
+
+@app.get("/non-blocking-io-method")
+async def none_blocking_io_method():
+    none_blocking_io_work()
+    return {"message": "This is a non-blocking-method IO endpoint!"}
 
 
 @app.get("/non-blocking-io")

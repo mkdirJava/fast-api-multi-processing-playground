@@ -35,6 +35,9 @@ Two Demos:
         this calls the async (none blocking) endpoint
         go-wrk -c 10 -d 5  -T  3000 http://localhost:9000/non-blocking-io
 
+        this calls the async (none blocking) endpoint
+        go-wrk -c 10 -d 5  -T  3000 http://localhost:9000/non-blocking-io-method
+
 ---
 
     2: Interservice communication via a server that has blockig endpoint calling 
@@ -53,9 +56,11 @@ Two Demos:
     Terminal 3 
 
     This calls the blocking endpoint (sync) which calls a blocking service endpoint (async)
-    go-wrk -c 10 -d 5  -T  3000  http://localhost:8000?callBlocking=true
+    go-wrk -c 10 -d 5  -T  3000  http://localhost:8000?call_type=blocking
 
     This calls the blocking endpoint (sync) which calls a non blocking service endpoint (async)
-    go-wrk -c 10 -d 5  -T  3000  http://localhost:8000?callBlocking=true
+    go-wrk -c 10 -d 5  -T  3000  http://localhost:8000?call_type=non_blocking_thread
 
+    This calls the blocking endpoint (sync) which calls a non blocking service endpoint (async)
+    go-wrk -c 10 -d 5  -T  3000  http://localhost:8000?call_type=non_blocking_method
 
