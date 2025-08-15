@@ -36,7 +36,7 @@ async def none_blocking_io_work():
 
 @app.get("/non-blocking-io-method")
 async def none_blocking_io_method():
-    none_blocking_io_work()
+    asyncio.create_task(none_blocking_io_work())
     return {"message": "This is a non-blocking-method IO endpoint!"}
 
 

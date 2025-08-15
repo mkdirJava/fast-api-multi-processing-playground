@@ -1,3 +1,4 @@
+import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import asynccontextmanager
 
@@ -55,7 +56,7 @@ def entry(
                 "message": "I fired and do not need to return the result",
             }
         case CallType.non_blocking_method:
-            none_blocking_io()
+            asyncio.create_task(none_blocking_io())
             return {
                 "message": "I fired and do not need to return the result",
             }
